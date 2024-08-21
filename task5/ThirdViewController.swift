@@ -14,6 +14,23 @@ class ThirdViewController: UIViewController{
     @IBOutlet weak var appleButton: UIButton!
     @IBOutlet weak var signinButton: UIButton!
     
+    @IBOutlet weak var firstnameTextField: UITextField!{
+        didSet{
+            firstnameTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var lastnameTextField: UITextField!{
+        didSet{
+            lastnameTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var usernameTextField: UITextField!{
+        didSet{
+            usernameTextField.delegate = self
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -33,5 +50,34 @@ class ThirdViewController: UIViewController{
         appleButton.layer.cornerRadius = 8
         continueButton.layer.cornerRadius = 16
     }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        updatecontinue()
+    }
+    func updatecontinue(){
+        if firstnameTextField.text?.isEmpty == false && lastnameTextField.text?.isEmpty == false && usernameTextField.text?.isEmpty == false{
+            continueButton.isEnabled = true
+            continueButton.backgroundColor = .red
+        }
+        else{
+            continueButton.isEnabled = false
+            continueButton.backgroundColor = .lightGray
+        }
+    }
+    var isIconChanged = false
+        
+    @IBAction func remembermeButton(_ sender: UIButton) {
+        if isIconChanged{
+            sender.setImage(UIImage(systemName: "square"), for: .normal)
+            sender.tintColor = .lightGray
+        }
+        else{
+            sender.setImage(UIImage(systemName: "square.fill"), for: .normal)
+            sender.tintColor = .black
+        }
+        isIconChanged.toggle()
+    }
+    
+}
+extension ThirdViewController: UITextFieldDelegate{
     
 }

@@ -23,8 +23,8 @@ class SecondViewController: UIViewController{
             passwordTextField.delegate = self
         }
     }
-    @IBOutlet weak var rememberButton: UIButton!
-    @IBOutlet weak var forgotpassButton: UIButton!
+    @IBOutlet weak var signinButton: UIButton!
+    
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var googleButton: UIButton!
     @IBOutlet weak var appleButton: UIButton!
@@ -66,7 +66,7 @@ class SecondViewController: UIViewController{
     }
     
     func setup(){
-        forgotpassButton.layer.cornerRadius = 16
+        signinButton.layer.cornerRadius = 16
         facebookButton.layer.borderWidth = 1
         facebookButton.layer.cornerRadius = 8
         facebookButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -77,8 +77,39 @@ class SecondViewController: UIViewController{
         appleButton.layer.borderColor = UIColor.lightGray.cgColor
         appleButton.layer.cornerRadius = 8
     }
-}
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        updatecontuniebutton()
+        
+    }
+    func updatecontuniebutton(){
+        if mailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false{
+            signinButton.isEnabled = true
+            signinButton.backgroundColor = .red
+        }
+        else{
+            signinButton.isEnabled = false
+            signinButton.backgroundColor = .lightGray
+        }
+    }
+    var isIconChanged = false
     
+    @IBAction func remembermeButton(_ sender: UIButton) {
+        if isIconChanged{
+            sender.setImage(UIImage(systemName: "square"), for: .normal)
+            sender.tintColor = .lightGray
+        }
+        else{
+            sender.setImage(UIImage(systemName: "square.fill"), for: .normal)
+            sender.tintColor = .black
+        }
+        isIconChanged.toggle()
+    }
+    
+    
+        
+    
+    
+}
 extension SecondViewController: UITextFieldDelegate{
     
 }
